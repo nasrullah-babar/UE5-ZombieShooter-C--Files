@@ -24,7 +24,7 @@ class AFPSSurvivalCharacter : public ACharacter
 	GENERATED_BODY()
 	//ref to weapon
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WEAPON", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<class AActor> m_cPistol;
+	TSubclassOf<class AActor> SK_Rifle;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Mesh, meta = (AllowPrivateAccess = "true"))
@@ -72,7 +72,7 @@ public:
 	bool bIsDead;
 
 	// Virtual function for character-specific setup
-	virtual void SetupCharacter() = 0;
+	virtual void SetupCharacter();
 
 	// Animation Montages
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
@@ -142,6 +142,6 @@ private:
 	FVector CameraLocation;
 
 	//UPROPERTY(EditDefaultsOnly, Category = "Inventory")
-	TSubclassOf<AActor> m_cPistol;
+	TSubclassOf<AActor> SK_Rifle;
 };
 

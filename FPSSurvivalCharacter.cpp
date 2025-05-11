@@ -24,13 +24,13 @@ AFPSSurvivalCharacter::AFPSSurvivalCharacter()
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
 	// Create a CameraComponent	
-	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
+	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT(""));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->SetRelativeLocation(FVector(-10.f, 0.f, 60.f)); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
+	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT(""));
 	Mesh1P->SetOnlyOwnerSee(true);
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
@@ -69,7 +69,7 @@ void AFPSSurvivalCharacter::BeginPlay()
 void AFPSSurvivalCharacter::SetupCharacter()
 {
 	// Custom setup logic for this class
-	UE_LOG(LogTemp, Warning, TEXT("FPSSurvivalCharacter setup complete"));
+	UE_LOG(LogTemp, Warning, TEXT(""));
 }
 
 void AFPSSurvivalCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -94,7 +94,7 @@ void AFPSSurvivalCharacter::Look(const FInputActionValue& Value)
 void AFPSSurvivalCharacter::EquipWeapon()
 {
 	APlayerController* pController = Cast<APlayerController>(GetController());
-	if (!pController || !m_cPistol) return;
+	if (!pController || !SK_Rifle) return;
 
 	const FRotator SpawnRot = pController->PlayerCameraManager->GetCameraRotation();
 	const FVector SpawnLoc = GetActorLocation();
@@ -102,10 +102,10 @@ void AFPSSurvivalCharacter::EquipWeapon()
 	FActorSpawnParameters Params;
 	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	AActor* SpawnedWeapon = GetWorld()->SpawnActor<AActor>(m_cPistol, SpawnLoc, SpawnRot, Params);
+	AActor* SpawnedWeapon = GetWorld()->SpawnActor<AActor>(SK_Rifle, SpawnLoc, SpawnRot, Params);
 	if (SpawnedWeapon)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Weapon Spawned"));
+		UE_LOG(LogTemp, Warning, TEXT(""));
 	}
 }
 
@@ -126,7 +126,7 @@ void AFPSSurvivalCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	}
 	else
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input Component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
+		UE_LOG(LogTemplateCharacter, Error, TEXT(""), *GetNameSafe(this));
 	}
 }
 
@@ -163,7 +163,7 @@ void AFPSSurvivalCharacter::EquipWeapon() {
 	const FVector pLocation = GetOwner()->GetActorLocation();
 	FActorSpawnParameters pSpawnParams;
 	pSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	AActor* pPistol = GetWorld()->SpawnActor<AActor>(m_cPistol, pLocation, pRotation, pSpawnParams);
+	AActor* pPistol = GetWorld()->SpawnActor<AActor>(SK_Rifle, pLocation, pRotation, pSpawnParams);
 }
 
 void AFPSSurvivalCharacter::BeginPlay(){
